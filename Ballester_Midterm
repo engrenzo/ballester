@@ -1,0 +1,136 @@
+import java.util.Scanner;
+
+class Person {
+    // Fields
+    private String name;
+    private int age;
+
+    // Constructor
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Methods
+    public void displayInfo() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+}
+
+class Student extends Person {
+    // Fields
+    private String studentID;
+    private String course;
+    private int units;
+    private final int feePerUnit = 1000;
+
+    // Constructor
+    public Student(String name, int age, String studentID, String course, int units) {
+        super(name, age);
+        this.studentID = studentID;
+        this.course = course;
+        this.units = units;
+    }
+
+    // Methods
+    public double calculateFees() {
+        return units * feePerUnit;
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Student ID: " + studentID);
+        System.out.println("Course: " + course);
+        System.out.println("Units: " + units);
+        System.out.println("Total Fee: " + calculateFees());
+    }
+}
+
+class Instructor extends Person {
+    // Fields
+    private String employeeID;
+    private String department;
+    private double salary;
+
+    // Constructor
+    public Instructor(String name, int age, String employeeID, String department, double salary) {
+        super(name, age);
+        this.employeeID = employeeID;
+        this.department = department;
+        this.salary = salary;
+    }
+
+    // Methods
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Employee ID: " + employeeID);
+        System.out.println("Department: " + department);
+        System.out.println("Salary: " + salary);
+    }
+}
+
+public class UniversityEnrolmentSystem {
+    public static void printDetails(Person p) {
+        p .displayInfo();
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the number of students:");
+        int numStudents = scanner.nextInt();
+
+        Student[] students = new Student[numStudents];
+
+        for (int i = 0; i < numStudents; i++) {
+            System.out.println("Enter student " + (i + 1) + "'s details:");
+            System.out.print("Name: ");
+            String name = scanner.next();
+            System.out.print("Age: ");
+            int age = scanner.nextInt();
+            System.out.print("Student ID: ");
+            String studentID = scanner.next();
+            System.out.print("Course: ");
+            String course = scanner.next();
+            System.out.print("Units: ");
+            int units = scanner.nextInt();
+
+            students[i] = new Student(name, age, studentID, course, units);
+        }
+
+        System.out.println("Enter the number of instructors:");
+        int numInstructors = scanner.nextInt();
+
+        Instructor[] instructors = new Instructor[numInstructors];
+
+        for (int i = 0; i < numInstructors; i++) {
+            System.out.println("Enter instructor " + (i + 1) + "'s details:");
+            System.out.print("Name: ");
+            String name = scanner.next();
+            System.out.print("Age: ");
+            int age = scanner.nextInt();
+            System.out.print("Employee ID: ");
+            String employeeID = scanner.next();
+            System.out.print("Department: ");
+            String department = scanner.next();
+            System.out.print("Salary: ");
+            double salary = scanner.nextDouble();
+
+            instructors[i] = new Instructor(name, age, employeeID, department, salary);
+        }
+
+        System.out.println("Student Details:");
+        for (Student student : students) {
+            printDetails(student);
+        }
+
+        System.out.println("Instructor Details:");
+        for (Instructor instructor : instructors) {
+            printDetails(instructor);
+        }
+    }
+}
